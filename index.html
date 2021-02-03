@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Temperature Hot</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="inputCity" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button onclick="checkTemperature()" type="button" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        <div id="temperature-container" class="weather-status text-white text-center">
+            <img id="icon" src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <h1 id="cityName">City</h1>
+            <h3><span id="temperature">Temperature</span>&deg;C</h3>
+            <h1 class="lead" id="condition">Condition</h1>
+        </div>
+    </div>
+    <script>
+        function checkTemperature() {
+            let city = document.getElementById('inputCity').value;
+            fetch('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=2f590883c9dab2f985185a5d003f0386')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data, data.name);
+                    let kelvinTemp = data.main.temp;
+                    let celsiusTemp = kelvinTemp - 273.15;
+                    let cityName = data.name;
+                    let condition = data.weather[0].main;
+                    let icon = data.weather[0].icon;
+                    document.getElementById('temperature').innerText = celsiusTemp.toFixed(1);
+                    document.getElementById('cityName').innerText = cityName;
+                    document.getElementById('condition').innerText = condition;
+                    document.getElementById('icon').setAttribute("src", "https://openweathermap.org/img/wn/" + icon + "@2x.png");
+                });
+        };
+    </script>
+</body>
+
+</html>
