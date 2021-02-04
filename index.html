@@ -52,7 +52,12 @@
                     document.getElementById('cityName').innerText = cityName;
                     document.getElementById('condition').innerText = condition;
                     document.getElementById('icon').setAttribute("src", "https://openweathermap.org/img/wn/" + icon + "@2x.png");
-                });
+                })
+                .catch(error => {
+                    document.getElementById('temperature').innerText = 'Temperature';
+                    document.getElementById('cityName').innerText = 'Unknown City name';
+                    document.getElementById('condition').innerText = '';
+                })
         };
         // Enter key event handler
         document.getElementById('inputCity').addEventListener("keydown", function (event) {
