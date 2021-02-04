@@ -38,7 +38,7 @@
     <script>
         function checkTemperature() {
             let city = document.getElementById('inputCity').value;
-            fetch('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=2f590883c9dab2f985185a5d003f0386')
+            fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=2f590883c9dab2f985185a5d003f0386')
                 .then(response => response.json())
                 .then(data => {
                     console.log(data, data.name);
