@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Temperature Hot</title>
+    <title>Temperature</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -24,7 +24,7 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" id="inputCity" placeholder="Enter a location for Weather ...">
                 <div class="input-group-append">
-                    <button onclick="checkTemperature()" type="button" class="btn btn-danger">Search</button>
+                    <button onclick="checkTemperature()" type="button" id="search-btn" class="btn btn-danger">Search</button>
                 </div>
             </div>
         </form>
@@ -36,6 +36,7 @@
         </div>
     </div>
     <script>
+        // temperature checker function
         function checkTemperature() {
             let city = document.getElementById('inputCity').value;
             fetch('https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=2f590883c9dab2f985185a5d003f0386')
@@ -53,6 +54,13 @@
                     document.getElementById('icon').setAttribute("src", "https://openweathermap.org/img/wn/" + icon + "@2x.png");
                 });
         };
+        // Enter key event handler
+        document.getElementById('inputCity').addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("search-btn").click();
+            }
+        });
     </script>
 </body>
 
